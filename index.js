@@ -38,7 +38,7 @@ app.get( "/", ( req, res ) =>
     res.send( "<h1>Hi There!</h1> <p>You can get products or signup & login.</p>" );
 } );
 
-app.listen( 3000, () =>
+app.listen( 3000 || process.env.PORT, () =>
 {
     console.log( "Server Running" );
 } );
