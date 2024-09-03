@@ -9,6 +9,7 @@ const productSchema = new Schema( {
     brand: String,
     category: String,
     image: String,
+    rate: Number,
 } );
 
 const Product = mongoose.model( "Product", productSchema );
