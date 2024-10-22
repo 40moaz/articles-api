@@ -5,17 +5,18 @@ const mongoose = require( "mongoose" );
 
 // Correctly encode the password
 const password = encodeURIComponent( 'Moaz@Ali123' );
-const url = `mongodb+srv://amoaz14109:${ password }@ecommerce-api.rqbexrw.mongodb.net/?retryWrites=true&w=majority&appName=eCommerce-api`;
+const url = `mongodb+srv://amoaz14109:${ password }@articles.snt0y.mongodb.net/?retryWrites=true&w=majority&appName=articles`;;
 // Allow requests from all origins
 app.use( cors() );
 // Connect to MongoDB
 mongoose.connect( url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+
 } )
     .then( () =>
     {
-        console.log( 'MongoDB connected' );
+        console.log( 'MongoDB connected (ok)' );
     } )
     .catch( err =>
     {
@@ -24,18 +25,16 @@ mongoose.connect( url, {
 app.use( express.json() );
 
 // API endpoints
-const productRoutes = require( './routes/products' );
-app.use( '/products', productRoutes );
+const articleRoutes = require( './routes/articles' );
+app.use( '/articles', articleRoutes );
 // Authentication routes
 const authRoutes = require( './routes/auth' );
 app.use( '/auth', authRoutes );
-const categoryRoutes = require( './routes/categories' );
-app.use( '/categories', categoryRoutes );
 
 
 app.get( "/", ( req, res ) =>
 {
-    res.send( "<h1>Hi There!</h1> <p>You can get products or signup & login.</p>" );
+    res.send( "<h1>Hi There!</h1>" );
 } );
 
 app.listen( 3000 || process.env.PORT, () =>

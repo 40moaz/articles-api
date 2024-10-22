@@ -1,16 +1,16 @@
 const express = require( 'express' );
 const router = express.Router();
-const Product = require( '../models/Product' );
+const Article = require( '../models/Article' );
 
-// 1- get Products
+// 1- get articles
 router.get( "/", async ( req, res ) =>
 {
     try
     {
-        const products = await Product.find();
+        const articles = await Article.find();
         res.json( {
-            message: "The Products have been fetched successfully",
-            products: products
+            message: "The articles have been fetched successfully",
+            articles: articles
         } );
     } catch ( error )
     {
@@ -21,27 +21,21 @@ router.get( "/", async ( req, res ) =>
     }
 } );
 
-// 2- post Product
+// 2- post Article
 router.post( "/", async ( req, res ) =>
 {
     try
     {
-        const newProduct = new Product( {
+        const newArticle = new Article( {
             title: req.body.title,
-            description: req.body.description,
-            price: req.body.price,
-            stock: req.body.stock,
-            brand: req.body.brand,
-            category: req.body.category,
-            thumbnail: req.body.thumbnail,
-            images: req.body.images
+            body: req.body.body,
+            date: req.body.date,
+            author_id: req.body.author_id
         } );
-
-        await newProduct.save();
-
+        await newArticle.save();
         res.json( {
-            message: "The Product was created successfully",
-            product: newProduct
+            message: "The article was created successfully",
+            article: newArticle
         } );
     } catch ( error )
     {
@@ -52,15 +46,15 @@ router.post( "/", async ( req, res ) =>
     }
 } );
 
-// 3- get one Product
+// 3- get one Article
 router.get( "/:id", async ( req, res ) =>
 {
     try
     {
-        const oneProduct = await Product.findById( req.params.id );
+        const oneArticle = await Article.findById( req.params.id );
         res.json( {
-            message: "The Product has been fetched successfully",
-            product: oneProduct
+            message: "The article has been fetched successfully",
+            article: oneArticle
         } );
     } catch ( error )
     {
@@ -71,36 +65,32 @@ router.get( "/:id", async ( req, res ) =>
     }
 } );
 
-// 4- edit one Product 
+// 4- edit one Article 
 router.put( "/:id", async ( req, res ) =>
 {
     try
     {
-        const updatedProduct = await Product.findByIdAndUpdate(
+        const updatedArticle = await Article.findByIdAndUpdate(
             req.params.id,
             {
                 title: req.body.title,
-                description: req.body.description,
-                price: req.body.price,
-                stock: req.body.stock,
-                brand: req.body.brand,
-                category: req.body.category,
-                thumbnail: req.body.thumbnail,
-                images: req.body.images
+                body: req.body.body,
+                date: req.body.date,
+                author_id: req.body.author_id
             },
             { new: true } // This option returns the updated document
         );
 
-        if ( !updatedProduct )
+        if ( !updatedArticle )
         {
             return res.status( 404 ).json( {
-                message: "Product not found"
+                message: "article not found"
             } );
         }
 
         res.json( {
-            message: "The product updated successfully",
-            product: updatedProduct
+            message: "The article updated successfully",
+            article: updatedArticle
         } );
     } catch ( error )
     {
@@ -110,15 +100,15 @@ router.put( "/:id", async ( req, res ) =>
         } );
     }
 } );
-// 5- delete Product
+// 5- delete article
 router.delete( "/:id", async ( req, res ) =>
 {
     try
     {
-        const oneProduct = await Product.findByIdAndDelete( req.params.id );
+        const oneArticle = await Article.findByIdAndDelete( req.params.id );
         res.json( {
-            message: "The Product has been deleted successfully",
-            product: oneProduct
+            message: "The Article has been deleted successfully",
+            article: oneArticle
         } );
     } catch ( error )
     {

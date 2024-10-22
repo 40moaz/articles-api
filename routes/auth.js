@@ -36,12 +36,12 @@ router.post( '/signup', async ( req, res ) =>
 {
     try
     {
-        const { fullName, email, phone, profileImage, password } = req.body;
+        const { name, email, phone, profileLink, password } = req.body;
 
         // Hash the password
         const hashedPassword = await bcrypt.hash( password, 10 ); // 10 is the salt rounds
 
-        const user = new User( { fullName, email, phone, profileImage, password: hashedPassword } );
+        const user = new User( { name, email, phone, profileLink, password: hashedPassword } );
         await user.save();
         res.status( 201 ).json( { message: 'User created successfully' } );
     } catch ( error )
@@ -89,7 +89,6 @@ router.get( '/me', verifyToken, async ( req, res ) =>
     {
         // Fetch the user details using userId from the token
         const user = await User.findById( req.user.userId ).select( '-password' ); // Exclude password field
-
         if ( !user )
         {
             return res.status( 404 ).json( { message: 'User not found' } );
@@ -105,33 +104,34 @@ router.get( '/me', verifyToken, async ( req, res ) =>
 } );
 
 // Update user profile
-router.put( '/me', verifyToken, async ( req, res ) =>
-{
-    try
-    {
-        const { fullName, email, phone, date_of_birth, profileImage, username } = req.body;
+// router.put( '/me', verifyToken, async ( req, res ) =>
+// {
+//     try
+//     {
+//         const { name, email, phone, profileLink, username } = req.body;
 
-        // Find user and update their details
-        const user = await User.findByIdAndUpdate(
-            req.user.userId,
-            { fullName, email, phone, date_of_birth, profileImage, username },
-            { new: true, runValidators: true } // Return the updated document and run validation
-        ).select( '-password' ); // Exclude password field
+//         // Find user and update their details
+//         const user = await User.findByIdAndUpdate(
+//             req.user.userId,
+//             { fullName, email, phone, date_of_birth, profileImage, username },
+//             { new: true, runValidators: true } // Return the updated document and run validation
+//         ).select( '-password' ); // Exclude password field
 
-        if ( !user )
-        {
-            return res.status( 404 ).json( { message: 'User not found' } );
-        }
+//         if ( !user )
+//         {
+//             return res.status( 404 ).json( { message: 'User not found' } );
+//         }
 
-        res.json( {
-            message: 'User profile updated successfully',
-            user: user
-        } );
-    } catch ( error )
-    {
-        res.status( 500 ).json( { message: 'Failed to update user profile', error: error.message } );
-    }
-} );
+//         res.json( {
+//             message: 'User profile updated successfully',
+//             user: user
+//         } );
+//     } catch ( error )
+//     {
+//         res.status( 500 ).json( { message: 'Failed to update user profile', error: error.message } );
+//     }
+// } );
+
 
 // Update password
 router.put( '/update-password', verifyToken, async ( req, res ) =>
@@ -184,4 +184,6 @@ router.delete( '/me', verifyToken, async ( req, res ) =>
         res.status( 500 ).json( { message: 'Failed to delete user', error: error.message } );
     }
 } );
+
 module.exports = router;
+
