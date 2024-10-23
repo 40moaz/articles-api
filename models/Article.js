@@ -6,13 +6,13 @@ const ArticleSchema = new Schema( {
     body: String,
     dscription: String,
     cover: String,
-    date: Number,
-    author_id: Number,
+    date: Date,
+    author_id: String,
     comments: [
         {
             user_id: String,
             comment_body: String,
-            date: String
+            date: Date
         }
     ]
 } );
