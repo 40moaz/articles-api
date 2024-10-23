@@ -1,11 +1,13 @@
 const mongoose = require( 'mongoose' );
 
 const UserSchema = new mongoose.Schema( {
-    name: String,
     email: String,
-    phone: String,
-    profileLink: String,
-    password: String
+    firstName: String,
+    lastName: String,
+    password: String,
+    nickName: String,
+    profilePhoto: String,
+    coverPhoto: String
 } );
 
 const User = mongoose.model( 'User', UserSchema );
