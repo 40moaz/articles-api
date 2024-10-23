@@ -33,12 +33,30 @@ app.use( '/articles', articleRoutes );
 
 // Authentication routes
 const authRoutes = require( './routes/auth' );
+const User = require( "./models/User" );
 app.use( '/auth', authRoutes );
 
 // Default route
 app.get( "/", ( req, res ) =>
 {
     res.json( { message: 'Hi There!' } );
+} );
+app.get( "/users", async ( req, res ) =>
+{
+    try
+    {
+        const users = await User.find();
+        res.json( {
+            message: "The articles have been fetched successfully",
+            users: users
+        } );
+    } catch ( error )
+    {
+        res.status( 500 ).json( {
+            message: "An error occurred",
+            error: error.message
+        } );
+    }
 } );
 
 // Start server
