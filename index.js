@@ -60,7 +60,7 @@ app.get( "/users", async ( req, res ) =>
 } );
 
 // get one User 
-app.get( "users/:id", async ( req, res ) =>
+app.get( "/users/:id", async ( req, res ) =>
 {
     try
     {
