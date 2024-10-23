@@ -59,8 +59,8 @@ app.get( "/users", async ( req, res ) =>
     }
 } );
 
-// get one User
-app.get( "user/:id", async ( req, res ) =>
+// get one User 
+app.get( "users/:id", async ( req, res ) =>
 {
     try
     {
