@@ -47,7 +47,7 @@ app.get( "/users", async ( req, res ) =>
     {
         const users = await User.find();
         res.json( {
-            message: "The articles have been fetched successfully",
+            message: "The users have been fetched successfully",
             users: users
         } );
     } catch ( error )
