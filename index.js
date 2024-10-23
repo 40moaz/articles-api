@@ -67,7 +67,7 @@ app.get( "users/:id", async ( req, res ) =>
         const oneUser = await User.findById( req.params.id );
         res.json( {
             message: "The User has been fetched successfully",
-            User: oneUser
+            user: oneUser
         } );
     } catch ( error )
     {
