@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const ArticleSchema = new Schema( {
     title: String,
     body: String,
+    dscription: String,
     cover: String,
     date: Number,
     author_id: Number,

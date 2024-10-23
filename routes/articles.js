@@ -29,8 +29,11 @@ router.post( "/", async ( req, res ) =>
         const newArticle = new Article( {
             title: req.body.title,
             body: req.body.body,
+            dscription: req.body.dscription,
+            cover: req.body.cover,
             date: req.body.date,
-            author_id: req.body.author_id
+            author_id: req.body.author_id,
+            comments: req.body.comments
         } );
         await newArticle.save();
         res.json( {
@@ -75,8 +78,11 @@ router.put( "/:id", async ( req, res ) =>
             {
                 title: req.body.title,
                 body: req.body.body,
+                dscription: req.body.dscription,
+                cover: req.body.cover,
                 date: req.body.date,
-                author_id: req.body.author_id
+                author_id: req.body.author_id,
+                comments: req.body.comments
             },
             { new: true } // This option returns the updated document
         );
