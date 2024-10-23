@@ -59,6 +59,25 @@ app.get( "/users", async ( req, res ) =>
     }
 } );
 
+// get one User
+app.get( "user/:id", async ( req, res ) =>
+{
+    try
+    {
+        const oneUser = await User.findById( req.params.id );
+        res.json( {
+            message: "The article has been fetched successfully",
+            User: oneUser
+        } );
+    } catch ( error )
+    {
+        res.status( 500 ).json( {
+            message: "An error occurred",
+            error: error.message
+        } );
+    }
+} );
+
 // Start server
 const port = process.env.PORT || 3000;
 app.listen( port, () =>
