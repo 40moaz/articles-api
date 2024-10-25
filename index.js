@@ -30,6 +30,8 @@ app.use( express.json() );
 // API endpoints
 const articleRoutes = require( './routes/articles' );
 app.use( '/articles', articleRoutes );
+console.log( articleRoutes );  // Should log a function (router)
+
 const commentRoutes = require( './routes/comments' );
 app.use( '/comments', commentRoutes );
 
