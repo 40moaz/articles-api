@@ -53,3 +53,5 @@ router.get( '/count', async ( req, res ) =>
         res.status( 500 ).json( { message: "Error getting like count" } );
     }
 } );
+
+module.exports = router;
