@@ -2,12 +2,15 @@ const express = require( 'express' );
 const router = express.Router();
 const Comment = require( '../models/Comment' );
 
-// 1- get Comments
+// 1- get Comments (with filtering by article_id)
 router.get( "/", async ( req, res ) =>
 {
     try
     {
-        const comments = await Comment.find();
+        const { article_id } = req.query; // Get article_id from query params
+        const filter = article_id ? { article_id } : {}; // If article_id exists, filter by it
+
+        const comments = await Comment.find( filter ); // Apply filter
         res.json( {
             message: "The comments have been fetched successfully",
             comments: comments
@@ -20,6 +23,7 @@ router.get( "/", async ( req, res ) =>
         } );
     }
 } );
+
 
 // 2- post Comment
 router.post( "/", async ( req, res ) =>
