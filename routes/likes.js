@@ -1,7 +1,7 @@
 const express = require( 'express' );
 const router = express.Router();
-
-router.post( '/likes', async ( req, res ) =>
+const Like = require( '../models/Like' );
+router.post( '/', async ( req, res ) =>
 {
     const { user_id, article_id } = req.body;
 
@@ -27,7 +27,7 @@ router.post( '/likes', async ( req, res ) =>
         res.status( 500 ).json( { success: false, message: "Error liking the article" } );
     }
 } );
-router.delete( '/likes', async ( req, res ) =>
+router.delete( '/', async ( req, res ) =>
 {
     const { user_id, article_id } = req.body;
 
@@ -40,7 +40,7 @@ router.delete( '/likes', async ( req, res ) =>
         res.status( 500 ).json( { success: false, message: "Error removing like" } );
     }
 } );
-router.get( '/likes/count', async ( req, res ) =>
+router.get( '/count', async ( req, res ) =>
 {
     const { article_id } = req.query;
 

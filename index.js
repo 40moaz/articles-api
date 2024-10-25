@@ -34,6 +34,8 @@ console.log( articleRoutes );  // Should log a function (router)
 
 const commentRoutes = require( './routes/comments' );
 app.use( '/comments', commentRoutes );
+const likeRoutes = require( './routes/likes' );
+app.use( '/likes', likeRoutes );
 
 // Authentication routes
 const authRoutes = require( './routes/auth' );
