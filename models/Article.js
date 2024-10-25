@@ -7,14 +7,7 @@ const ArticleSchema = new Schema( {
     dscription: String,
     cover: String,
     date: Date,
-    author_id: String,
-    comments: [
-        {
-            user_id: String,
-            comment_body: String,
-            date: Date
-        }
-    ]
+    author_id: String
 } );
 
 const Article = mongoose.model( "Article", ArticleSchema );
