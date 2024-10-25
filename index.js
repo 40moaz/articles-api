@@ -30,6 +30,8 @@ app.use( express.json() );
 // API endpoints
 const articleRoutes = require( './routes/articles' );
 app.use( '/articles', articleRoutes );
+const commentRoutes = require( './routes/comments' );
+app.use( '/comments', commentRoutes );
 
 // Authentication routes
 const authRoutes = require( './routes/auth' );
