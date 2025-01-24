@@ -22,7 +22,6 @@ router.get( '/status', async ( req, res ) =>
         res.status( 500 ).json( { success: false, message: "Error fetching like status" } );
     }
 } );
-
 // إضافة لايك
 router.post( '/', async ( req, res ) =>
 {
@@ -32,7 +31,6 @@ router.post( '/', async ( req, res ) =>
     {
         return res.status( 400 ).json( { success: false, message: "User ID and Article ID are required" } );
     }
-
     try
     {
         const existingLike = await Like.findOne( { user_id, article_id } );
@@ -51,7 +49,6 @@ router.post( '/', async ( req, res ) =>
         res.status( 500 ).json( { success: false, message: "Error liking the article" } );
     }
 } );
-
 // إزالة لايك
 router.delete( '/', async ( req, res ) =>
 {
@@ -99,5 +96,4 @@ router.get( '/count', async ( req, res ) =>
         res.status( 500 ).json( { success: false, message: "Error getting like count" } );
     }
 } );
-
 module.exports = router;

@@ -27,6 +27,7 @@ mongoose.connect( url, {
 // Middleware to parse JSON requests
 app.use( express.json() );
 
+
 // API endpoints
 const articleRoutes = require( './routes/articles' );
 app.use( '/articles', articleRoutes );
