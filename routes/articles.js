@@ -29,6 +29,8 @@ router.post( "/", async ( req, res ) =>
         const newArticle = new Article( {
             title: req.body.title,
             body: req.body.body,
+            description: req.body.description,
+            cover: req.body.cover,
             date: req.body.date,
             author_id: req.body.author_id
         } );
@@ -75,6 +77,8 @@ router.put( "/:id", async ( req, res ) =>
             {
                 title: req.body.title,
                 body: req.body.body,
+                description: req.body.description,
+                cover: req.body.cover,
                 date: req.body.date,
                 author_id: req.body.author_id
             },
