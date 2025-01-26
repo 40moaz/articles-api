@@ -68,5 +68,37 @@ router.get( "/:id", async ( req, res ) =>
         } );
     }
 } );
+router.post("/:id/like", async (req, res) => {
+    try {
+        const { user_id } = req.body; // معرّف المستخدم
+        const comment = await Comment.findById(req.params.id);
+
+        if (!comment) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+
+        // Check if the user already liked the comment
+        const hasLiked = comment.likedBy.includes(user_id);
+
+        if (hasLiked) {
+            // إذا أعجب المستخدم بالفعل، قم بإزالة اللايك
+            comment.likedBy = comment.likedBy.filter((id) => id !== user_id);
+            comment.likes -= 1;
+        } else {
+            // إذا لم يعجب المستخدم من قبل، أضف اللايك
+            comment.likedBy.push(user_id);
+            comment.likes += 1;
+        }
+
+        await comment.save();
+
+        res.json({
+            message: hasLiked ? "Like removed" : "Like added",
+            likes: comment.likes,
+        });
+    } catch (error) {
+        res.status(500).json({ message: "An error occurred", error: error.message });
+    }
+});
 
 module.exports = router;
