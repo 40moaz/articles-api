@@ -32,21 +32,23 @@ function verifyToken ( req, res, next )
 }
 
 // Create a new user account
-router.post( '/signup', async ( req, res ) =>
-{
-    try
-    {
+router.post('/signup', async (req, res) => {
+    try {
         const { email, firstName, lastName, password, nickName, phone, profilePhoto, coverPhoto } = req.body;
-        // Hash the password
-        const hashedPassword = await bcrypt.hash( password, 10 ); // 10 is the salt rounds
-        const user = new User( { email, firstName, lastName, password: hashedPassword, nickName, phone, profilePhoto, coverPhoto } );
+        // تحقق من وجود الإيميل في قاعدة البيانات
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email is already registered' });
+        }
+        // Hash كلمة المرور
+        const hashedPassword = await bcrypt.hash(password, 10); // 10 هي عدد الجولات لتوليد الـ salt
+        const user = new User({ email, firstName, lastName, password: hashedPassword, nickName, phone, profilePhoto, coverPhoto });
         await user.save();
-        res.status( 201 ).json( { message: 'User created successfully' } );
-    } catch ( error )
-    {
-        res.status( 500 ).json( { message: 'Failed to create user', error: error.message } );
+        res.status(201).json({ message: 'تم إنشاء الحساب بنجاح' });
+    } catch (error) {
+        res.status(500).json({ message: 'فشل في إنشاء الحساب', error: error.message });
     }
-} );
+});
 
 // User login
 router.post( '/login', async ( req, res ) =>
